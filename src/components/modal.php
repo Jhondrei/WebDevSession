@@ -55,6 +55,26 @@
     </div>
 </div>
 
+<!-- Registration Response Modal -->
+ 
+<div id="register-response-modal" class="modal-panel hidden" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" onclick="closeModal('register-response-modal')"></div>
+  <div class="modal-surface max-w-md bg-white rounded-lg shadow-lg p-6">
+    <div class="modal-header flex justify-between items-center mb-4">
+      <h3 id="register-response-title" class="text-2xl font-bold text-pink-600">Success!</h3>
+      <button class="close-btn text-xl font-bold" aria-label="Close" onclick="closeModal('register-response-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <p id="register-response-message" class="text-gray-800 text-center text-lg"></p>
+    </div>
+    <div class="modal-footer mt-6">
+      <button onclick="closeModal('register-response-modal')" class="btn-primary w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700">
+        Continue
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Register Modal -->
 <div id="register-modal" class="modal-panel hidden" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-backdrop" onclick="closeModal('register-modal')"></div>
@@ -141,87 +161,5 @@
     </div>
 </div>
 
-<script>
-    function openModal(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.classList.remove("hidden");
-        el.classList.add("is-open");
-
-        if (
-            id === "register-modal" &&
-            typeof resetRegisterFormValidation === "function"
-        ) {
-            resetRegisterFormValidation();
-        }
-    }
-
-    function closeModal(id) {
-        var el = document.getElementById(id);
-        if (!el) return;
-        el.classList.add("hidden");
-        el.classList.remove("is-open");
-    }
-
-    function switchToRegister() {
-        closeModal("login-modal");
-        openModal("register-modal");
-    }
-
-    function switchToLogin() {
-        closeModal("register-modal");
-        openModal("login-modal");
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const openLoginBtn = document.getElementById("open-login");
-        const openRegisterBtn = document.getElementById("open-register");
-
-        if (openLoginBtn) {
-            openLoginBtn.addEventListener("click", function (event) {
-                event.preventDefault();
-                openModal("login-modal");
-            });
-        }
-
-        if (openRegisterBtn) {
-            openRegisterBtn.addEventListener("click", function (event) {
-                event.preventDefault();
-                openModal("register-modal");
-            });
-        }
-    });
-
-    function logout() {
-        if (!window.confirm("Are you sure you want to logout?")) {
-            return;
-        }
-        $.ajax({
-            url: "../backend/logout.php",
-            type: "POST",
-            dataType: "json",
-            success: function (response) {
-                if (response.success) {
-                    resetNavbarToGuest();
-                    alert("Logged out successfully!");
-                }
-            },
-            error: function () {
-                resetNavbarToGuest();
-            },
-        });
-    }
-
-    function resetNavbarToGuest() {
-        const guestMenu = document.getElementById("guest-menu");
-        if (guestMenu) guestMenu.style.display = "block";
-
-        const userMenu = document.getElementById("user-menu");
-        if (userMenu) userMenu.classList.add("hidden");
-
-        const accountText = document.getElementById("account-text");
-        if (accountText) accountText.textContent = "My Account";
-    }
-
-    window.logout = logout;
-</script>
+<script src="../js/modal.js"></script>
+<script src="../js/validation/register-validation.js"></script>

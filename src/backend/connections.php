@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db = 'wedding_shop';
 $user = 'root';
-$pass = 'Mysqlpass@';
+$pass = '';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

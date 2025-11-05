@@ -1,37 +1,34 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Function to check if user is logged in
-function isLoggedIn() {
-    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+// Check login status
+function isLoggedIn(): bool {
+    return !empty($_SESSION['logged_in']);
 }
 
-// Function to get current user data
-function getCurrentUser() {
-    if (isLoggedIn()) {
-        return [
-            'id' => $_SESSION['user_id'],
-            'name' => $_SESSION['user_name'],
-            'email' => $_SESSION['user_email']
-        ];
-    }
-    return null;
+// Get current user data
+function getCurrentUser(): ?array {
+    return isLoggedIn() ? [
+        'id'    => $_SESSION['user_id'] ?? null,
+        'name'  => $_SESSION['user_name'] ?? null,
+        'email' => $_SESSION['user_email'] ?? null
+    ] : null;
 }
 
-// Function to require login (redirect if not logged in)
-function requireLogin($redirectTo = '../pages/home.php') {
+// Redirect if not logged in
+function requireLogin(string $redirectTo = '../pages/home.php'): void {
     if (!isLoggedIn()) {
-        header('Location: ' . $redirectTo);
+        header("Location: $redirectTo");
         exit;
     }
 }
 
-// Function to require guest (redirect if logged in)
-function requireGuest($redirectTo = '../pages/home.php') {
+// Redirect if already logged in
+function requireGuest(string $redirectTo = '../pages/home.php'): void {
     if (isLoggedIn()) {
-        header('Location: ' . $redirectTo);
+        header("Location: $redirectTo");
         exit;
     }
 }

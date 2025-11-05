@@ -112,12 +112,13 @@ renderHeader([
                                     <?= date('F d, Y', strtotime($order['order_date'])); ?>
                                 </p>
                             </div>
+                            <?php
+                            $status = isset($order['status']) ? $order['status'] : 'unknown';?>
                             <span
-                                class="self-start rounded-full px-3 py-1 text-sm font-medium <?= resolveStatusBadge($order['status']); ?>">
-                                <?= htmlspecialchars(ucfirst($order['status'])); ?>
+                                class="self-start rounded-full px-3 py-1 text-sm font-medium <?= resolveStatusBadge($status); ?>">
+                                <?= htmlspecialchars(ucfirst($status)); ?>
                             </span>
                         </div>
-
                         <?php if (!empty($orderItems[$order['order_id']])): ?>
                             <div class="mb-4 space-y-3">
                                 <?php foreach ($orderItems[$order['order_id']] as $item): ?>
