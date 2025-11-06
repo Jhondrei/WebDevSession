@@ -209,14 +209,12 @@ include('../components/hero.php');
   <?php
   renderFooter([
     'scripts' => [
-      '<script src="https://unpkg.com/motion@latest/dist/motion.umd.js"></script>',
       '<script src="../js/main.js"></script>',
       '<script src="../js/validation-integration.js"></script>',
       '<script src="../js/auth.js"></script>',
       '<script src="../js/reveal.js"></script>',
       '<script src="../js/scroll-fade.js"></script>',
       '<script src="../js/reviews.js"></script>',
-      '<script src="../js/shop-page.js"></script>'
-    ]
+      '<script src="../js/contact-page.js"></script>']
   ]);
   ?>
